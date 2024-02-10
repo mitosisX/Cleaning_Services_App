@@ -1,12 +1,37 @@
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../utils/Colors";
+import * as WebBrowser from "expo-web-browser";
+import { useWarmUpBrowser } from "../../hooks/warmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
+import Home from "../HomeScreen/HomeScreen";
+import { Link, router } from "expo-router";
+
+WebBrowser.maybeCompleteAuthSession();
 
 const Login = () => {
+  useWarmUpBrowser();
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
+  const onPress = React.useCallback(async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow();
+
+      if (createdSessionId) {
+        setActive({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }, []);
+
   return (
     <View style={{ alignItems: "center" }}>
       <Image
-        source={require("../../../assets/login.png")}
+        source={require("../../../assets/images/login.png")}
         style={styles.loginImage}
       />
       <View style={styles.subContainer}>
@@ -35,10 +60,7 @@ const Login = () => {
           Best app to find services near you which deliver you a professional
           service
         </Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => console.log("CLicked")}
-        >
+        <TouchableOpacity style={styles.button} onPress={() => 2}>
           <Text style={{ textAlign: "center", color: Colors.PRIMARY }}>
             Let's Get Started
           </Text>
