@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
-import { View, Text, FlatList, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import Heading from "../../Components/Heading";
 import Colors from "../../utils/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -31,6 +39,8 @@ const Categories = () => {
     ]);
   }, []);
 
+  const navigation = useNavigation();
+
   return (
     <View style={{ marginTop: 10 }}>
       <Heading text={"Categories"} isViewAll={true} />
@@ -41,7 +51,10 @@ const Categories = () => {
         data={categories}
         renderItem={({ item, index }) => {
           return (
-            <View style={styles.container}>
+            <TouchableOpacity
+              style={styles.container}
+              onPress={() => navigation.push("business-list")}
+            >
               <View style={styles.iconContainer}>
                 <Image
                   source={item.image}
@@ -54,7 +67,7 @@ const Categories = () => {
               <Text style={{ fontFamily: "outfit-medium", marginTop: 5 }}>
                 {item.name}
               </Text>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />

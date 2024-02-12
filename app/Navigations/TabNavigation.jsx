@@ -4,6 +4,7 @@ import BookingScreen from "../Screens/BookingScreen/BookingScreen";
 import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from "../utils/Colors";
+import HomeNavigation from "./HomeNavigation";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -12,7 +13,7 @@ export const TabNavigation = () => {
     <Tab.Navigator activeColor={Colors.PRIMARY}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeNavigation}
         options={{
           tabBarIcon: (color, size) => (
             <FontAwesome name="home" size={24} color={"black"} />

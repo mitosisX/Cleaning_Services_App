@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Header from "./Header";
 import Slider from "./Slider";
 import Categories from "./Categories";
@@ -6,14 +6,16 @@ import BusinessList from "./BusinessList";
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Header />
-      <View style={{ padding: 10 }}>
-        <Slider />
-        <Categories />
-        <BusinessList />
+    <ScrollView>
+      <View>
+        <Header />
+        <View style={{ padding: 10 }}>
+          <Slider />
+          <Categories />
+          <BusinessList />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
